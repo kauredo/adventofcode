@@ -1,5 +1,7 @@
 # frozen_string_literal: true %>
 
+require "pry"
+
 class Solution
   def self.part_1(*input)
     new(*input).part_1
@@ -16,15 +18,28 @@ class Solution
   def data
     @data ||= begin
                 processed = @input.lines(chomp: true).map do |line|
-                  process_input line
+                  process_input(line) if !line.empty?
                 end
 
                 processed.length == 1 ? processed.first : process_dataset(processed)
               end
   end
 
+  def split_data
+    @split_data ||= begin
+      processed = @input.split("\n\n").map do |line|
+        line.split("\n").map do |item|
+          process_input(item) if !item.empty?
+        end
+      end
+
+      process_dataset(processed)
+    end
+  end
+
   private
     def process_input(line)
+      return line.to_i if line.to_i > 0
       line
     end
 

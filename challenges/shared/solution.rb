@@ -1,6 +1,7 @@
 # frozen_string_literal: true %>
 
 require "pry"
+require "byebug"
 
 class Solution
   def self.part_1(*input)

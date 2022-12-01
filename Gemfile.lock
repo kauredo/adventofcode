@@ -52,6 +52,7 @@ PLATFORMS
 
 DEPENDENCIES
   aoc_rb!
+  byebug
   pry
   pry-byebug
 

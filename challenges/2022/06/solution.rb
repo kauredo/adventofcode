@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Year2022
   class Day06 < Solution
     # @input is available if you need the raw data input
@@ -21,11 +22,11 @@ module Year2022
     end
 
     def find_uniq(char_map, num)
-      str = ""
+      str = ''
       found = false
       id = 0
 
-      until found do
+      until found
         id, char = char_map[id]
         str += char
         last_num = str.chars.last(num)

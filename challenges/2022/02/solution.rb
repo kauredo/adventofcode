@@ -1,26 +1,27 @@
 # frozen_string_literal: true
+
 module Year2022
   class Day02 < Solution
     POINTS = {
-      "X" => 1,
-      "Y" => 2,
-      "Z" => 3,
-      "A" => 1,
-      "B" => 2,
-      "C" => 3
-    }
+      'X' => 1,
+      'Y' => 2,
+      'Z' => 3,
+      'A' => 1,
+      'B' => 2,
+      'C' => 3
+    }.freeze
 
     HAND = {
-      "A" => "X",
-      "B" => "Y",
-      "C" => "Z"
-    }
+      'A' => 'X',
+      'B' => 'Y',
+      'C' => 'Z'
+    }.freeze
 
     RESULTS = {
-      "X" => 0,
-      "Y" => 3,
-      "Z" => 6
-    }
+      'X' => 0,
+      'Y' => 3,
+      'Z' => 6
+    }.freeze
 
     def part_1
       score = 0
@@ -55,6 +56,7 @@ module Year2022
     end
 
     private
+
     def calculate_result(opponent, you)
       case POINTS[you] - POINTS[opponent]
       when 0
@@ -67,15 +69,15 @@ module Year2022
     end
 
     def calculate_hand(opponent, result)
-      hands = %W(A B C)
+      hands = %w[A B C]
 
       case RESULTS[result]
-      when 0 #lose
+      when 0 # lose
         hand = hands.find_index(opponent) - 1
         POINTS[hands[hand]]
-      when 3 #draw
+      when 3 # draw
         POINTS[opponent]
-      when 6 #win
+      when 6 # win
         hand = hands.find_index(opponent) + 1
         hand -= 3 if hand == 3
         POINTS[hands[hand]]

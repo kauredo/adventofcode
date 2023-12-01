@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Year2022
   class Day03 < Solution
     # @input is available if you need the raw data input
@@ -24,7 +25,7 @@ module Year2022
       total = 0
       numbers = {}
       data.each_slice(3) do |lines|
-        lines.map!{|line| line.split('')}
+        lines.map! { |line| line.split('') }
         common = lines.reduce(:&).first
         number = ALPHABET.index(common) + 1
 
@@ -34,15 +35,14 @@ module Year2022
       total
     end
 
-    private
-      # Processes each line of the input file and stores the result in the dataset
-      # def process_input(line)
-      #   line.map(&:to_i)
-      # end
+    # Processes each line of the input file and stores the result in the dataset
+    # def process_input(line)
+    #   line.map(&:to_i)
+    # end
 
-      # Processes the dataset as a whole
-      # def process_dataset(set)
-      #   set
-      # end
+    # Processes the dataset as a whole
+    # def process_dataset(set)
+    #   set
+    # end
   end
 end

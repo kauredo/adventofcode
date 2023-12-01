@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module Year2022
   class Day05 < Solution
-
     def part_1
       @crates = {}
       @moves = []
@@ -13,7 +13,7 @@ module Year2022
           @crates[to] << moved
         end
       end
-      @crates.to_a.sort.map do |col_num, letters|
+      @crates.to_a.sort.map do |_col_num, letters|
         letters.last
       end.join
     end
@@ -28,7 +28,7 @@ module Year2022
         @crates[to] += moved
       end
 
-      @crates.to_a.sort.map do |col_num, letters|
+      @crates.to_a.sort.map do |_col_num, letters|
         letters.last
       end.join
     end
@@ -52,10 +52,10 @@ module Year2022
 
     def setup_crates(crates_list)
       crates_list.each do |row|
-        row = row.gsub("[", "").gsub("]", "").gsub("    ", "-").gsub(" ", "")
+        row = row.gsub('[', '').gsub(']', '').gsub('    ', '-').gsub(' ', '')
 
-        row.split("").each_with_index do |letter, index|
-          if letter != "-"
+        row.split('').each_with_index do |letter, index|
+          if letter != '-'
             @crates[index + 1] = [] if @crates[index + 1].nil?
             @crates[index + 1] << letter
           end
@@ -65,7 +65,7 @@ module Year2022
 
     def setup_moves(moves_list)
       moves_list.map do |row|
-        @moves << row.split.map(&:to_i).delete_if {|item| item == 0}
+        @moves << row.split.map(&:to_i).delete_if(&:zero?)
       end
     end
   end

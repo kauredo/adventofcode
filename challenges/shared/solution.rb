@@ -1,7 +1,7 @@
-# frozen_string_literal: true %>
+# frozen_string_literal: true
 
-require "pry"
-require "byebug"
+require 'pry'
+require 'byebug'
 
 class Solution
   def self.part_1(*input)
@@ -18,19 +18,19 @@ class Solution
 
   def data
     @data ||= begin
-                processed = @input.lines(chomp: true).map do |line|
-                  process_input(line) if !line.empty?
-                end
+      processed = @input.lines(chomp: true).map do |line|
+        process_input(line) unless line.empty?
+      end
 
-                processed.length == 1 ? processed.first : process_dataset(processed)
-              end
+      processed.length == 1 ? processed.first : process_dataset(processed)
+    end
   end
 
   def split_data
     @split_data ||= begin
       processed = @input.split("\n\n").map do |line|
         line.split("\n").map do |item|
-          process_input(item) if !item.empty?
+          process_input(item) unless item.empty?
         end
       end
 
@@ -39,12 +39,14 @@ class Solution
   end
 
   private
-    def process_input(line)
-      return line.to_i if line.to_i > 0
-      line
-    end
 
-    def process_dataset(set)
-      set
-    end
+  def process_input(line)
+    return line.to_i if line.to_i.positive?
+
+    line
+  end
+
+  def process_dataset(set)
+    set
+  end
 end

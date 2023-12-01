@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Year2022
   class Day01 < Solution
     # @input is available if you need the raw data input
@@ -15,10 +16,7 @@ module Year2022
     private
 
     def total_per_person
-      split_data.map do |person|
-        person.sum
-      end.sort
+      split_data.map(&:sum).sort
     end
-
   end
 end

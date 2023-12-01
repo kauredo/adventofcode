@@ -1,3 +1,15 @@
 
 Style/Documentation:
   Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false

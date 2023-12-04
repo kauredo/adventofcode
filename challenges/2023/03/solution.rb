@@ -7,6 +7,7 @@ module Year2023
     NUMBER = /\d+/.freeze
     NOT_SPECIAL = /[0-9a-zA-Z.]/.freeze
     SPECIAL = /[^0-9a-zA-Z.]/.freeze
+    STAR = /\*/.freeze
 
     def part_1
       # pad the data with a border of . to avoid having to check for out of bounds
@@ -52,7 +53,63 @@ module Year2023
     end
 
     def part_2
-      # data
+      data = padded_data
+      valid_positions = []
+      possible_number_locations = {}
+      gears = {}
+      coordinates_around = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [-1, 1], [1, -1], [1, 0], [1, 1]]
+
+      data.each_with_index do |line, y|
+        line.each_with_index do |char, x|
+          next unless char =~ STAR
+
+          gears[[x, y]] = []
+          coordinates_around.each do |coordinate|
+            valid_positions << [x + coordinate[0], y + coordinate[1]]
+          end
+        end
+      end
+
+      valid_positions.uniq!
+
+      data.each_with_index do |line, y|
+        # scan for numbers
+        line.join('').enum_for(:scan, NUMBER).map do |number|
+          start_of_num = Regexp.last_match.begin(0)
+          end_of_num = start_of_num + number.size - 1
+
+          (start_of_num..end_of_num).each do |x|
+            possible_number_locations[[x, y]] = number.to_i if valid_positions.include?([x, y])
+          end
+        end
+      end
+
+      gears.each do |gear_position, _number|
+        possible_number_locations.each do |possible_number_location, number|
+          next unless adjacent?(gear_position, possible_number_location)
+
+          gears[gear_position] << { possible_number_location => number }
+        end
+      end
+
+      gears.each do |gear_position, values|
+        gears.delete(gear_position) if values.size == 1
+        # binding.pry
+        next unless gears.values.any? do |gear_values|
+          gear_values.select do |gear_value|
+            position = gear_value.keys.first
+            number = gear_value.values.first
+            binding.pry
+            adjacent?(gear_position, position) && gear_position != position
+          end.count > 1
+        end
+
+        puts 'deleting'
+        gears.delete(gear_position)
+      end
+
+      binding.pry
+      possible_number_locations.values.sum
     end
 
     private
@@ -76,7 +133,6 @@ module Year2023
         line.unshift('.').push('.')
       end
       data.unshift(Array.new(data[0].size, '.')).push(Array.new(data[0].size, '.'))
-      print_dataset if data.size < 20
       data
     end
   end

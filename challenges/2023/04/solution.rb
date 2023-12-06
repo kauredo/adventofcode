@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Year2023
   class Day04 < Solution
     def part_1
